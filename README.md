@@ -3,7 +3,7 @@
 
 # Bluloco.nvim
 
-A fancy and sophisticated designer neovim theme built with [lush.nvim](https://github.com/rktjmp/lush.nvim).
+A fancy and sophisticated designer neovim theme with zero dependencies.
 It features a much more comprehensive usage of syntax scopes and color
 consistency, with due regards to aesthetics, contrast and readability.
 There is a light and dark variant.
@@ -83,10 +83,7 @@ Install Bluloco with your favorite package manager.
 ### [packer](https://github.com/wbthomason/packer.nvim)
 
 ```lua
-use {
-    'uloco/bluloco.nvim',
-    requires = { 'rktjmp/lush.nvim' }
-}
+use 'uloco/bluloco.nvim'
 ```
 
 ### [lazy.nvim](https://github.com/folke/lazy.nvim)
@@ -96,7 +93,6 @@ use {
   'uloco/bluloco.nvim',
   lazy = false,
   priority = 1000,
-  dependencies = { 'rktjmp/lush.nvim' },
   config = function()
     -- your optional config goes here, see below.
   end,
