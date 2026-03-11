@@ -236,8 +236,8 @@ function M.setup(config)
   hl("Search", { bg = t.search.hex })
   hl("IncSearch", { bg = t.cursor:mix(t.bg, 10).hex, fg = t.bg.hex })
   link("CurSearch", "Search")
-  hl("NormalFloat", { bg = t.bgFloat.hex, blend = 5 })
-  hl("FloatBorder", { fg = t.punctuation.hex })
+  hl("NormalFloat", { bg = t.bgFloat.hex })
+  hl("FloatBorder", { fg = t.punctuation.hex, bg = t.bgFloat.hex })
   hl("NormalSB", { bg = t.bgFloat.hex })
   hl("ColorColumn", { bg = t.grey5.hex })
   hl("Conceal", {})
@@ -1042,14 +1042,64 @@ function M.setup(config)
 
   -- Transparency
   if config.transparent == true and not isGui then
+    -- Base windows
     hl("Normal", { fg = t.fg.hex, bg = "NONE" })
     hl("NormalSB", { bg = "NONE" })
+    hl("NormalFloat", { bg = "NONE" })
+    hl("FloatBorder", { fg = t.punctuation.hex, bg = "NONE" })
+
+    -- Bufferline
     hl("BufferlineFill", { bg = "NONE" })
+    hl("BufferInactive", { fg = t.shade40.hex, bg = "NONE" })
+    hl("BufferVisible", { fg = t.fg.hex, bg = "NONE" })
+
+    -- Plugins with sidebars
     hl("TroubleNormal", { bg = "NONE" })
     hl("NvimTreeNormal", { bg = "NONE" })
     hl("NvimTreeNormalNC", { bg = "NONE" })
-    hl("BufferInactive", { fg = t.shade40.hex, bg = "NONE" })
-    hl("BufferVisible", { fg = t.fg.hex, bg = t.bg.hex })
+
+    -- Telescope
+    hl("TelescopeNormal", { bg = "NONE" })
+    hl("TelescopeBorder", { fg = t.punctuation.hex, bg = "NONE" })
+
+    -- Fzf-lua
+    hl("FzfLuaNormal", { bg = "NONE" })
+    hl("FzfLuaBorder", { fg = t.punctuation.hex, bg = "NONE" })
+    hl("FzfLuaTitle", { fg = t.punctuation.hex, bg = "NONE" })
+    hl("FzfLuaPreviewNormal", { bg = "NONE" })
+    hl("FzfLuaPreviewBorder", { fg = t.punctuation.hex, bg = "NONE" })
+
+    -- Snacks.nvim picker
+    hl("SnacksPickerInput", { bg = "NONE", blend = 0 })
+    hl("SnacksPickerBorder", { fg = t.punctuation.hex, bg = "NONE" })
+    hl("SnacksPickerTitle", { fg = t.punctuation.hex, bg = "NONE" })
+
+    -- LSPSaga
+    hl("SagaNormal", { bg = "NONE" })
+
+    -- Mason
+    hl("MasonNormal", { bg = "NONE" })
+
+    -- Completion menus
+    hl("Pmenu", { bg = "NONE" })
+    hl("CmpDocumentation", { fg = t.fg.hex, bg = "NONE" })
+    hl("CmpDocumentationBorder", { fg = t.punctuation.hex, bg = "NONE" })
+    hl("BlinkCmpDoc", { fg = t.fg.hex, bg = "NONE" })
+    hl("BlinkCmpDocBorder", { fg = t.punctuation.hex, bg = "NONE" })
+
+    -- Notify
+    hl("NotifyBackground", { bg = "NONE" })
+
+    -- WhichKey
+    hl("WhichKeyFloat", { bg = "NONE" })
+    hl("WhichKeyBorder", { bg = "NONE" })
+
+    -- Lazy.nvim
+    hl("LazyNormal", { bg = "NONE" })
+
+    -- Noice
+    hl("NoicePopup", { bg = "NONE" })
+    hl("NoicePopupmenu", { bg = "NONE" })
   end
 
   -- Italics
