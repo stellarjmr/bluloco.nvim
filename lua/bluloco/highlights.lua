@@ -183,6 +183,7 @@ function M.setup(config)
   t.shade8 = shade(t.bg, 8)
   t.shade9 = shade(t.bg, 9)
   t.shade10 = shade(t.bg, 10)
+  t.shade15 = shade(t.bg, 15)
   t.shade20 = shade(t.bg, 20)
   t.shade25 = shade(t.bg, 25)
   t.shade30 = shade(t.bg, 30)
@@ -197,6 +198,7 @@ function M.setup(config)
   t.grey5 = t.shade5:mix(t.primary, 5)
   t.grey7 = t.shade7:mix(t.primary, 7)
   t.grey10 = t.shade10:mix(t.primary, 10)
+  t.grey15 = t.shade15:mix(t.primary, 10)
   t.grey20 = t.shade20:mix(t.primary, 10)
   t.grey25 = t.shade25:mix(t.primary, 10)
   t.grey30 = t.shade30:mix(t.primary, 10)
@@ -225,6 +227,11 @@ function M.setup(config)
     vim.g.terminal_color_15 = t.terminalBrightWhite.hex
   end
 
+  -- Compute transparent float window background
+  local isTransparentFloatWindow = config.transparent and config.float_window == "transparent"
+  local float_bg = isTransparentFloatWindow and "NONE" or t.bgFloat.hex
+  local float_blend = isTransparentFloatWindow and nil or 5
+
   -- Base highlights
   hl("Normal", { fg = t.fg.hex, bg = t.bg.hex })
   hl("CursorLine", { bg = t.grey7.hex })
@@ -236,9 +243,9 @@ function M.setup(config)
   hl("Search", { bg = t.search.hex })
   hl("IncSearch", { bg = t.cursor:mix(t.bg, 10).hex, fg = t.bg.hex })
   link("CurSearch", "Search")
-  hl("NormalFloat", { bg = t.bgFloat.hex, blend = 5 })
+  hl("NormalFloat", { bg = float_bg, blend = float_blend })
   hl("FloatBorder", { fg = t.punctuation.hex })
-  hl("NormalSB", { bg = t.bgFloat.hex })
+  hl("NormalSB", { bg = float_bg })
   hl("ColorColumn", { bg = t.grey5.hex })
   hl("Conceal", {})
   hl("Cursor", { bg = t.cursor.hex, fg = t.bg.hex })
@@ -881,6 +888,10 @@ function M.setup(config)
   -- Copilot
   hl("CopilotSuggestion", { fg = t.copilot:mix(t.bg, 20).hex })
   hl("CopilotAnnotation", { fg = t.copilot:mix(t.primary, 50):mix(t.bg, 30).hex })
+
+  -- Ufo
+  hl("UfoFolded", { bg = t.shade7.hex })
+  link("UfoFoldedBg", "UfoFolded")
 
   -- Basic syntax without treesitter
   -- JavaScript

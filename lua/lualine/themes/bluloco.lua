@@ -10,6 +10,8 @@ local dark = {
   grey3    = "#2d333e",
   grey5    = "#333a48",
   grey7    = "#384252",
+  grey10   = "#3c495d",
+  grey15   = "#425067",
   grey20   = "#4a5a73",
 }
 
@@ -25,12 +27,14 @@ local light = {
   grey3    = "#ededee",
   grey5    = "#e7e8e9",
   grey7    = "#dee1e3",
+  grey10   = "#d2d8da",
+  grey15   = "#c4cbcf",
   grey20   = "#b9c2c6",
 }
 
 local t = dark
 
-if (vim.o.background == "light") then
+if vim.o.background == "light" then
   t = light
 end
 
@@ -38,31 +42,31 @@ return {
   normal = {
     a = { bg = t.blue, fg = t.bg },
     b = { bg = t.grey7, fg = t.fg },
-    c = { bg = t.grey3, fg = t.fg }
+    c = { bg = t.grey3, fg = t.fg },
   },
   insert = {
     a = { bg = t.blueDark, fg = t.bg },
-    b = { bg = t.grey7, fg = t.blueDark },
-    c = { bg = t.grey3, fg = t.fg }
+    b = { bg = t.grey7, fg = t.fg },
+    c = { bg = t.grey3, fg = t.fg },
   },
   visual = {
     a = { bg = t.purple, fg = t.bg },
-    b = { bg = t.grey7, fg = t.purple },
-    c = { bg = t.grey3, fg = t.fg }
+    b = { bg = t.grey7, fg = t.fg },
+    c = { bg = t.grey3, fg = t.fg },
   },
   replace = {
     a = { bg = t.red, fg = t.bg },
-    b = { bg = t.grey7, fg = t.red },
-    c = { bg = t.grey3, fg = t.fg }
+    b = { bg = t.grey7, fg = t.fg },
+    c = { bg = t.grey3, fg = t.fg },
   },
   command = {
     a = { bg = t.green, fg = t.bg },
-    b = { bg = t.grey7, fg = t.green },
-    c = { bg = t.grey3, fg = t.fg }
+    b = { bg = t.grey7, fg = t.fg },
+    c = { bg = t.grey3, fg = t.fg },
   },
   inactive = {
-    a = { bg = t.grey20, fg = t.grey3, },
-    b = { bg = t.grey5, fg = t.grey20 },
-    c = { bg = t.grey5, fg = t.grey20 }
-  }
+    a = { bg = t.grey20, fg = t.bg },
+    b = { bg = t.grey10, fg = t.bg },
+    c = { bg = t.grey3, fg = t.grey20 },
+  },
 }
