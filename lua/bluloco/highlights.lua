@@ -236,8 +236,8 @@ function M.setup(config)
   hl("Search", { bg = t.search.hex })
   hl("IncSearch", { bg = t.cursor:mix(t.bg, 10).hex, fg = t.bg.hex })
   link("CurSearch", "Search")
-  hl("NormalFloat", { bg = t.bgFloat.hex })
-  hl("FloatBorder", { fg = t.punctuation.hex, bg = t.bgFloat.hex })
+  hl("NormalFloat", { bg = t.bgFloat.hex, blend = 5 })
+  hl("FloatBorder", { fg = t.punctuation.hex })
   hl("NormalSB", { bg = t.bgFloat.hex })
   hl("ColorColumn", { bg = t.grey5.hex })
   hl("Conceal", {})
@@ -519,7 +519,7 @@ function M.setup(config)
   hl("TelescopeMultiSelection", { fg = t.attribute.hex })
   hl("TelescopeMultiIcon", { fg = t.primary.hex })
   link("TelescopeNormal", "NormalFloat")
-  hl("TelescopeBorder", { fg = t.punctuation.hex, bg = t.bgFloat.hex })
+  hl("TelescopeBorder", { fg = t.punctuation.hex })
   hl("TelescopeMatching", { fg = t.keyword.hex })
   hl("TelescopePromptPrefix", { fg = t.punctuation.hex })
   hl("TelescopePreviewLink", { fg = t.label.hex })
@@ -537,10 +537,10 @@ function M.setup(config)
 
   -- Fzf-lua
   link("FzfLuaNormal", "NormalFloat")
-  hl("FzfLuaBorder", { fg = t.punctuation.hex, bg = t.bgFloat.hex })
-  hl("FzfLuaTitle", { fg = t.punctuation.hex, bg = t.bgFloat.hex })
+  hl("FzfLuaBorder", { fg = t.punctuation.hex })
+  hl("FzfLuaTitle", { fg = t.punctuation.hex })
   link("FzfLuaPreviewNormal", "NormalFloat")
-  hl("FzfLuaPreviewBorder", { fg = t.punctuation.hex, bg = t.bgFloat.hex })
+  hl("FzfLuaPreviewBorder", { fg = t.punctuation.hex })
   link("FzfLuaCursorLine", "Visual")
   link("FzfLuaCursorLineNr", "Visual")
   link("FzfLuaHeaderBind", "Character")
@@ -830,8 +830,8 @@ function M.setup(config)
 
   -- Snacks.nvim picker
   hl("SnacksPickerInput", { bg = t.bgFloat.hex, blend = 0 })
-  hl("SnacksPickerBorder", { fg = t.punctuation.hex, bg = t.bgFloat.hex })
-  hl("SnacksPickerTitle", { fg = t.punctuation.hex, bg = t.bgFloat.hex })
+  hl("SnacksPickerBorder", { fg = t.punctuation.hex })
+  hl("SnacksPickerTitle", { fg = t.punctuation.hex })
   hl("SnacksPickerSelected", { fg = t.primary.hex })
   link("SnacksPickerSearch", "Visual")
   hl("SnacksPickerMatch", { fg = t.keyword.hex })
@@ -1041,65 +1041,17 @@ function M.setup(config)
   local isGui = vim.fn.has("gui_running") == 1
 
   -- Transparency
+  -- Match original lush behavior: only override Normal, sidebars, and bufferline
+  -- Floating windows keep their blend=5 for proper transparency rendering
   if config.transparent == true and not isGui then
-    -- Base windows
     hl("Normal", { fg = t.fg.hex, bg = "NONE" })
     hl("NormalSB", { bg = "NONE" })
-    hl("NormalFloat", { bg = "NONE" })
-    hl("FloatBorder", { fg = t.punctuation.hex, bg = "NONE" })
-
-    -- Bufferline
     hl("BufferlineFill", { bg = "NONE" })
-    hl("BufferInactive", { fg = t.shade40.hex, bg = "NONE" })
-    hl("BufferVisible", { fg = t.fg.hex, bg = "NONE" })
-
-    -- Plugins with sidebars
     hl("TroubleNormal", { bg = "NONE" })
     hl("NvimTreeNormal", { bg = "NONE" })
     hl("NvimTreeNormalNC", { bg = "NONE" })
-
-    -- Telescope
-    hl("TelescopeNormal", { bg = "NONE" })
-    hl("TelescopeBorder", { fg = t.punctuation.hex, bg = "NONE" })
-
-    -- Fzf-lua
-    hl("FzfLuaNormal", { bg = "NONE" })
-    hl("FzfLuaBorder", { fg = t.punctuation.hex, bg = "NONE" })
-    hl("FzfLuaTitle", { fg = t.punctuation.hex, bg = "NONE" })
-    hl("FzfLuaPreviewNormal", { bg = "NONE" })
-    hl("FzfLuaPreviewBorder", { fg = t.punctuation.hex, bg = "NONE" })
-
-    -- Snacks.nvim picker
-    hl("SnacksPickerInput", { bg = "NONE", blend = 0 })
-    hl("SnacksPickerBorder", { fg = t.punctuation.hex, bg = "NONE" })
-    hl("SnacksPickerTitle", { fg = t.punctuation.hex, bg = "NONE" })
-
-    -- LSPSaga
-    hl("SagaNormal", { bg = "NONE" })
-
-    -- Mason
-    hl("MasonNormal", { bg = "NONE" })
-
-    -- Completion menus
-    hl("Pmenu", { bg = "NONE" })
-    hl("CmpDocumentation", { fg = t.fg.hex, bg = "NONE" })
-    hl("CmpDocumentationBorder", { fg = t.punctuation.hex, bg = "NONE" })
-    hl("BlinkCmpDoc", { fg = t.fg.hex, bg = "NONE" })
-    hl("BlinkCmpDocBorder", { fg = t.punctuation.hex, bg = "NONE" })
-
-    -- Notify
-    hl("NotifyBackground", { bg = "NONE" })
-
-    -- WhichKey
-    hl("WhichKeyFloat", { bg = "NONE" })
-    hl("WhichKeyBorder", { bg = "NONE" })
-
-    -- Lazy.nvim
-    hl("LazyNormal", { bg = "NONE" })
-
-    -- Noice
-    hl("NoicePopup", { bg = "NONE" })
-    hl("NoicePopupmenu", { bg = "NONE" })
+    hl("BufferInactive", { fg = t.shade40.hex, bg = "NONE" })
+    link("BufferVisible", "BufferCurrent")
   end
 
   -- Italics
