@@ -1,7 +1,5 @@
----@diagnostic disable: undefined-global
-local lush = require('lush')
+-- Bluloco colorscheme - Zero external dependencies
 local M = {}
-
 
 local isGui = vim.fn.has("gui_running") == 1
 
@@ -26,73 +24,19 @@ function M.setup(options)
 end
 
 function M.load()
-  local theme = require('lush_theme.bluloco')
+  -- Reset highlighting
+  if vim.g.colors_name then
+    vim.cmd("hi clear")
+  end
+
+  if vim.fn.exists("syntax_on") then
+    vim.cmd("syntax reset")
+  end
+
   vim.g.colors_name = 'bluloco'
-  package.loaded['lush_theme.bluloco'] = nil
 
-  -- transparent
-  if (M.config.transparent == true and not isGui) then
-    theme = lush.extends({ theme }).with(function()
-      return {
-        Normal { theme.Normal, bg = "NONE" }, -- normal text
-        NormalSB { bg = "NONE" },
-        BufferlineFill { bg = "NONE" },
-        TroubleNormal { bg = "NONE" },
-        NvimTreeNormal { bg = "NONE" },
-        NvimTreeNormalNC { bg = "NONE" },
-        BufferInactive { theme.BufferInactive, bg = "NONE" },
-        BufferVisible { theme.BufferCurrent }
-      }
-    end)
-  end
-
-  -- italics
-  if (M.config.italics == true) then
-    theme = lush.extends({ theme }).with(function(injected_functions)
-      local sym = injected_functions.sym
-      return {
-        Statement { theme.Statement, gui = "italic" },
-        Boolean { theme.Boolean, gui = "italic" },
-        Comment { theme.Comment, gui = "italic" },
-        sym("@tag.attribute") { theme["@tag.attribute"], gui = "italic" },
-        sym("@annotation") { theme["@annotation"], gui = "italic" },
-      }
-    end)
-  end
-
-  -- rainbow headings
-  if (M.config.rainbow_headings == true) then
-    theme = lush.extends({ theme }).with(function(injected_functions)
-      local sym = injected_functions.sym
-      return {
-        sym("@markup.heading.1") { theme.RainbowRed },
-        sym("@markup.heading.2") { theme.RainbowYellow },
-        sym("@markup.heading.3") { theme.RainbowBlue },
-        sym("@markup.heading.4") { theme.RainbowOrange },
-        sym("@markup.heading.5") { theme.RainbowGreen },
-        sym("@markup.heading.6") { theme.RainbowViolet },
-        markdownH1 { theme.RainbowRed },
-        markdownH2 { theme.RainbowYellow },
-        markdownH3 { theme.RainbowBlue },
-        markdownH4 { theme.RainbowOrange },
-        markdownH5 { theme.RainbowGreen },
-        markdownH6 { theme.RainbowViolet },
-      }
-    end)
-  end
-
-  -- bufferline
-  local bufferlineInstalled = pcall(require, 'bufferline')
-  if (bufferlineInstalled) then
-    theme = lush.extends({ theme }).with(function()
-      return {
-        TabLineSel { bg = theme.Statement.fg }, -- tab pages line, active tab page label
-      }
-    end)
-  end
-
-
-  lush(theme)
+  -- Apply all highlights
+  require('bluloco.highlights').setup(M.config)
 end
 
 return M
